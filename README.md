@@ -1,27 +1,47 @@
-# Configuration for Google OAuth and Gmail API
+# Overview of the User Registration Application
 
+**Application Framework and Language**
+  - Framework: Django
+  - Programming Language: Python
+    
+**Database Management**
+  - Database System: SQLite
+    
+**Major Documentation used**
+  - https://developers.google.com/gmail/api/guides/sending
+  - https://developers.google.com/gmail/api/quickstart/python
 
-To use this application, you must configure it with your Google OAuth and Gmail API credentials. This involves creating a credential.env file for the OAuth credentials and a credential.json file for the Gmail API credentials. Follow the steps below to set up these files:
+## User Registration Process
 
-**Setting up Google OAuth Credentials**
+**The user registration process involves several key steps:**
 
-1. **Create a Project in Google Cloud Console**: Go to the [Google Cloud Console](https://console.cloud.google.com/) and create a new project or select an existing one.
-2. **Enable OAuth Consent Screen**: Navigate to the OAuth consent screen under API & Services and set up the consent screen. This step is crucial for authenticating users.
-3. **Create OAuth Credentials**: In the Credentials section, click "Create Credentials" and choose "OAuth client ID". Select the application type (e.g., Web application).
-4. **Download OAuth Credentials**: Once the OAuth client ID is created, download the credentials JSON file. However, for the credential.env, you'll manually create the file and enter the `client_id` and `client_secret` as follows:
+  - User Form Submission: Users submit their registration details via a form, including username, email, and password.
 
-**Creating credential.env** 
+  - Data Validation: The application checks that all fields are filled with valid information. It also verifies that the user's email does not already exist in the database to prevent duplicate registrations.
 
-1. Open a text editor and create a new file named credential.env.
-2. Add the following lines, replacing YOUR_CLIENT_ID and YOUR_CLIENT_SECRET with the values from the Google OAuth credentials you just created:
-  ```GOOGLE_CLIENT_ID=YOUR_CLIENT_ID```
-  ```GOOGLE_CLIENT_SECRET=YOUR_CLIENT_SECRET```
-3. Save credential.env in the root directory of the application.
+  - Database Storage: Upon successful validation, the user's information is stored in the SQLite database.
 
-**Setting up Gmail API Credentials**
+## Email Verification System
 
-1. Enable the Gmail API: In the Google Cloud Console, navigate to the "Library" section under "APIs & Services". Search for the Gmail API and enable it for your project.
-2. Download the JSON Credentials: Typically, the same OAuth 2.0 credentials can be used. Make sure to download the credentials JSON file which contains the client_id, client_secret, and other necessary information.
-3. Save the Credentials JSON File:
-    - Rename the downloaded JSON file to credential.json.
-    - Place credential.json in the root directory of your application.
+  - Email Service: Gmail API
+     - To verify each user's email address, the application uses Gmail API as the email service provider.
+  - Verification Method: Unique Verification Token
+     - Unique verification tokens are generated using the UUID library, and this token is sent to the user’s email address as part of the verification link.
+
+## Steps for Email Verification:
+
+  - Token Generation: UUID generates A unique token for each user.
+
+  - Email Composition: An email containing the verification link with the embedded token is prepared.
+
+  - User Verification: Users click the verification link, which leads them to a verification page within the application. The application validates the token and activates the user's account upon successful verification.
+
+## Security Measures
+
+  - Password Hashing: User passwords are hashed using Django's built-in authentication system to ensure security.
+
+  - Token Security: UUID provides a secure and unique token for each user, minimizing the risk of unauthorized access.
+
+## Conclusion
+
+The Django user registration application efficiently handles user registration, data storage, and email verification. The application ensures a seamless and secure user registration process by leveraging SQLite for database management, Google Email for email verification, and UUID for secure token generation.
