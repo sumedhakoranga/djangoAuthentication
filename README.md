@@ -11,6 +11,20 @@
   - https://developers.google.com/gmail/api/guides/sending
   - https://developers.google.com/gmail/api/quickstart/python
 
+## Installation
+
+  - Follow [this](https://developers.google.com/gmail/api/quickstart/python) documentation to create your own ```crendetial.json``` and ```credential.env```
+  -  Clone the repository and run the following commands
+
+```bash
+    python3 -m venv django_project
+    source django_project/bin/activate
+    pip install django
+    django-admin startproject django_project
+    python manage.py migrate
+    python manage.py runserver  
+```
+
 ## User Registration Process
 
 **The user registration process involves several key steps:**
@@ -24,7 +38,7 @@
 ## Email Verification System
 
   - Email Service: Gmail API
-     - To verify each user's email address, the application uses Gmail API as the email service provider.
+     - The application uses Gmail API as the email service provider to verify each user's email address.
   - Verification Method: Unique Verification Token
      - Unique verification tokens are generated using the UUID library, and this token is sent to the user’s email address as part of the verification link.
 
